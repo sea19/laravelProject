@@ -68,7 +68,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $user = Auth::user();
+        $post = Post::where("user_id", "=", $user->id)->findOrFail($id);
 
         return view('posts.show', compact('post'));
     }
@@ -81,7 +82,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
+        $user = Auth::user();
+        $post = Post::where("user_id", "=", $user->id)->findOrFail($id);
 
         return view('posts.edit',  compact('post'));
     }
